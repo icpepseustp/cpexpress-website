@@ -1,10 +1,36 @@
 import React from 'react'
+import Dashboard from './pages/Dashboard'
+import HowItWorks from './pages/HowItWorks'
+import Contact from './pages/Contact'
+import Navbar from './components/Navbar'
+import Wrapper from './components/Wrapper'
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className='flex justify-center h-screen items-center'>
-     <h1 className='text-offwhite text-3xl font-bold'>COMWEB Cutie</h1>
-    </div>
+    <>
+    <Wrapper>
+        <Route
+          path='/'
+          element={
+            <Dashboard/>
+          }
+        />
+        <Route
+          path='/how'
+          element={
+            <HowItWorks/>
+          }
+        />
+        <Route
+          path='/contact'
+          element={
+            <Contact/>
+          }
+        />
+    
+    </Wrapper>
+    </>
   )
 }
 

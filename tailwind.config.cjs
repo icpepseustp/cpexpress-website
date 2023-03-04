@@ -14,9 +14,11 @@ module.exports = {
         secondary: "#0E2C4E",
         tertiary: "#334B66",
         offwhite: "#5E85B0",
+        border: "#365FFF"
       },
       fontFamily: {
-        dmsans: ["DM Sans", "sans-serif"]
+        dmsans: ["DM Sans", "sans-serif"],
+        josefin: ["Josefin Sans", "sans-serif"]
       },
     },
   },

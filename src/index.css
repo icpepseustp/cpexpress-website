@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +7,34 @@
 
 @layer base {
   body {
-    @apply bg-[url('../src/assets/images/bg-image.png')];
     @apply font-dmsans;
-    
   }
+
+}
+
+.posts-gradient-border {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="Gradient" gradientUnits="userSpaceOnUse" gradientTransform="rotate(15)"> <stop stop-color="%23365FFF" offset="0" stop-opacity="0"/><stop stop-color="%23365FFF" offset="1" stop-opacity="1" /></linearGradient></defs><rect x="1" y="1" height="100%" width="100%" style="height: calc(100% - 2px);width: calc(100% - 2px);" rx="12" stroke-width="1" fill="none" stroke="url(%23Gradient)"/></svg>');
+  border-radius: 12px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c1c5ce;
 }

@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import { v4 as uuid } from 'uuid';
 import header from '../assets/images/welcome.png'
 import tile_bg_1 from '../assets/images/tile-bg-1.png'
 import tile_bg_2 from '../assets/images/tile-bg-2.png'
@@ -7,20 +8,40 @@ import joebot from '../assets/images/joebot.png'
 import { format} from 'date-fns'
 import { FaPlusCircle, FaHeart } from "react-icons/fa"
 import posts from '../assets/sample-data.json'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function Dashboard() {
+function Dashboard(props) {
 
   const [month, setMonth] = useState('');
   const [day, setDay] = useState('');
+  
+  var id = null;
 
   useEffect(() => {
-    
     setMonth(format(Date.now(), 'MMM'));
     setDay(format(Date.now(), 'dd'));
   }, []);
 
+  const getUserId = () => {
+    const user_id = localStorage.getItem('user-id');
+
+    try{
+      if(user_id){
+        id = JSON.parse(user_id);
+      }else{
+        const new_id = uuid().slice(0,8)
+        id = new_id;
+        localStorage.setItem('user-id', JSON.stringify(id));
+      }
+    }catch{
+      console.log('error');
+    }
+  }
+
   return (
-    <div className='container px-4 h-full w-full'>
+    <>
+     <div className='container px-4 h-full w-full'>
       <div className='flex flex-col items-center'>
       <img src={header} className='w-[60%] py-4'/>
       <div className='flex flex-col w-full py-2 gap-y-2'>
@@ -53,7 +74,18 @@ function Dashboard() {
                 <p className='font-[100] text-sm font-dmsans py-2'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore</p>
               </div>
           </div>
-          <div className='relative w-full h-[200px]'>
+          <div onClick={() => {
+            if(id){
+              props.setId(id)
+            }else{
+              getUserId()
+              props.setId(id)
+            }
+
+            if(id){
+              props.toggleModal()
+            }
+          }} className='cursor-pointer relative w-full h-[200px]'>
               <img src={tile_bg_2} className='z-[-10] w-full h-full absolute object-fit' /> 
               <div className='flex h-full w-full items-center justify-center'>
                 <FaPlusCircle className='fill-white h-7 w-7'/>
@@ -79,10 +111,11 @@ function Dashboard() {
         </div>
         <div className='h-10 w-full'></div>
       </div>
-      
+      <ToastContainer/>
       </div>
       
     </div>
+    </>
   )
 }
 

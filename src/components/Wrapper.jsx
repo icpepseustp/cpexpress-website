@@ -7,10 +7,10 @@ function Wrapper({children}) {
   return (
     <div className='relative'>
         <img className='absolute w-full h-full object-cover z-[-10]' src={background}/>
-        <Navbar />
-        <Routes>
-            {children}
-        </Routes>
+          <Navbar />       
+          <Routes>
+              {children}
+          </Routes>
     </div>
   )
 }

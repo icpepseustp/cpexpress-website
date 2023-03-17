@@ -69,7 +69,6 @@ function Dashboard(props) {
   }
 
   return (
-    <>
      <div className='container lg:px-4 px-5 h-full w-full'>
       <div className='flex flex-col items-center'>
       <img src={header} className='lg:w-[60%] w-[90%] pt-4 pb-6'/>
@@ -154,7 +153,6 @@ function Dashboard(props) {
       </div>
       
     </div>
-    </>
   )
 }
 

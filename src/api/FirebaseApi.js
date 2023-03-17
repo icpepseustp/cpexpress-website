@@ -36,4 +36,22 @@ const updateLike = (postId, like, userId) => {
   }
 }
 
-export { addPost, postRef, updateLike }
+const updatePost = async (postId, type) => {
+  try{
+    if(type === 'approve'){
+      await updateDoc(doc(db, 'posts', postId), { approved : true})
+      return true;
+    } else if(type === 'restore'){
+      await updateDoc(doc(db, 'posts', postId), { approved : false})
+      return true;
+    }
+    else{
+      await updateDoc(doc(db, 'posts', postId), { approved : null})
+      return true;
+    }
+  } catch(err){
+    return false;
+  }
+}
+
+export { addPost, postRef, updateLike, updatePost }

@@ -47,15 +47,15 @@ const handleSubmit =  async (e) => {
   }, [email, password]);
 
   return (
-    <div className='h-screen w-full px-8'>
+    <div className='h-screen w-full px-8 '>
         <div className='flex flex-row h-[400px]'>
-            <div className='w-1/2 px-4 flex flex-col justify-center items-center'>
+            <div className='hidden lg:flex lg:w-1/2 px-4 flex-col justify-center items-center'>
                 <h1 className='text-white text-6xl ml-16'>
                     This is where the magic happens!
                 </h1>
             </div>
-            <div className='w-1/2 h-full flex flex-col justify-center items-center'>
-                <div className='relative w-[350px] h-[300px]'>
+            <div className='lg:w-1/2 w-full h-full flex flex-col justify-center lg:items-center'>
+                <div className='relative lg:w-[350px] h-[300px]'>
                 <img src={tile_bg_1} className='z-[-10] w-full h-full absolute object-fit' /> 
                     <div className='flex flex-col py-4 px-10 font-dmsans text-white '>
                         <h1 className='text-center text-xl mb-3'>Admin Login</h1>

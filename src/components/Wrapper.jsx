@@ -3,14 +3,17 @@ import { Routes } from 'react-router'
 import Navbar from './Navbar'
 import background from '../assets/images/background.png'
 
-function Wrapper({children}) {
+function Wrapper({children, ...props}) {
   return (
-    <div className='relative'>
+    <div className={`relative ${props.show ? 'h-full':'h-screen' }`}>
         <img className='absolute w-full h-full object-cover z-[-10]' src={background}/>
-          <Navbar />       
-          <Routes>
+          <Navbar openNav={props.openNav}/>       
+          {
+            props.show && 
+            (<Routes>
               {children}
-          </Routes>
+          </Routes>)
+          }
     </div>
   )
 }

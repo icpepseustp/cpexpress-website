@@ -3,7 +3,7 @@ import { Link, useResolvedPath, useMatch } from "react-router-dom";
 import logo from '../assets/images/icpepse-logo.png'
 import { FaBars, FaTimes } from "react-icons/fa"
 
-export default function Navbar() {
+export default function Navbar(props) {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
     return (
       <>
@@ -14,12 +14,14 @@ export default function Navbar() {
                 className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white"
                 href="/"
               >
-                <img src={logo} className='w-[80px] h-[80px]' />
+                <img src={logo} className='lg:w-[80px] lg:h-[80px] w-[68px] h-[68px]' />
               </a>
               <button
                 className="text-white cursor-pointer  text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
                 type="button"
-                onClick={() => setNavbarOpen(!navbarOpen)}
+                onClick={() => {
+                  props.openNav(!navbarOpen)
+                  setNavbarOpen(!navbarOpen)}}
               >
                 {navbarOpen ? <FaTimes/> : <FaBars/>}
               </button>
@@ -30,8 +32,10 @@ export default function Navbar() {
                 (navbarOpen ? " flex" : " hidden")
               }
             >
-              
-              <ul className=" flex flex-col lg:flex-row list-none lg:ml-auto w-full items-center min-w-max lg:w-min">
+              <ul onClick={() => {
+                  props.openNav(!navbarOpen)
+                  setNavbarOpen(!navbarOpen)
+              }} className=" flex flex-col lg:flex-row list-none lg:ml-auto w-full items-center min-w-max lg:w-min">
                 <CustomLinks to={'/'}>Dashboard</CustomLinks>
                 <CustomLinks to={'/how'}>How It Works</CustomLinks>
                 <CustomLinks to={'/contact'}>Contact</CustomLinks>

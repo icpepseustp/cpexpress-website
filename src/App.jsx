@@ -11,6 +11,7 @@ function App() {
 
   const [modal, setModal] = useState(false);
   const [userId, setUserId] = useState();
+  const [show, setShow] = useState(true);
 
   const setId = (id) => {
     setUserId(id);
@@ -35,6 +36,10 @@ function App() {
     })
   }
 
+  const openNav = (open) => {
+    setShow(!open)
+  }
+
   return (
     <div className='relative'>
     {
@@ -42,7 +47,7 @@ function App() {
         <Modal className='absolute' toggleModal={toggleModal} userId={userId} showError={showError} showSuccess={showSuccess}/>
       )
     }
-    <Wrapper>
+    <Wrapper show={show} openNav={openNav}>
         <Route
           path='/'
           element={

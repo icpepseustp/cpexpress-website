@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link, useResolvedPath, useMatch } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import logo from '../assets/images/icpepse-logo.png'
 import { FaBars, FaTimes } from "react-icons/fa"
 

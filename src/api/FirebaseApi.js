@@ -1,12 +1,18 @@
 import { db } from '../../firebase'
-import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { 
+  doc, 
+  collection, 
+  addDoc, 
+  Timestamp, 
+  updateDoc, 
+  arrayUnion, 
+  arrayRemove } from 'firebase/firestore'
+
+const postRef = collection(db, 'posts');
 
 const addPost = async (userId, content) => {
-
-  console.log(userId)
-  console.log(content)
    try {
-     return await addDoc(collection(db, 'posts'), {
+     return await addDoc(postRef, {
        uploader: userId,
        body: content,
        approved: false,
@@ -18,4 +24,16 @@ const addPost = async (userId, content) => {
    }
 }
 
-export { addPost }
+const updateLike = (postId, like, userId) => {
+  try{
+    if(like){
+      updateDoc(doc(db, 'posts', postId), { like: arrayUnion(userId)})
+    }else{
+      updateDoc(doc(db, 'posts', postId), { like: arrayRemove(userId)})
+    }
+  } catch(err){
+    return false;
+  }
+}
+
+export { addPost, postRef, updateLike }

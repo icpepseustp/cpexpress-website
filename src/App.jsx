@@ -39,7 +39,7 @@ function App() {
     <div className='relative'>
     {
       modal && (
-        <Modal className='absolute' toggleModal={toggleModal} userId={userId} showSuccess={showSuccess}/>
+        <Modal className='absolute' toggleModal={toggleModal} userId={userId} showError={showError} showSuccess={showSuccess}/>
       )
     }
     <Wrapper>

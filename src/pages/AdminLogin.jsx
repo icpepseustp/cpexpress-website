@@ -22,7 +22,7 @@ const handleSubmit =  async (e) => {
         const process = new Promise(async (resolve, reject) => {
             try {
                 await signIn(email, password);
-                setTimeout(navigate("/admin-ds"), 2000);
+                setTimeout(navigate("/admin"), 2000);
                 resolve();
               } catch (e) {
                 setError(e.message)

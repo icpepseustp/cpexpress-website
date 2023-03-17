@@ -72,13 +72,13 @@ function App() {
             }
           />
           <Route
-            path='/admin-login'
+            path='/login'
             element={
               <AdminLogin/>
             }
           />
           <Route
-            path='/admin-ds'
+            path='/admin'
             element = {
               <ProtectedRoute>
                   <AdminDashboard />

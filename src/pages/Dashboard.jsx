@@ -96,9 +96,9 @@ function Dashboard(props) {
           </div>
           <div className='relative w-full lg:h-[200px] h-[140px]'>
               <img src={tile_bg_1} className='z-[-10] w-full h-full absolute object-fit' /> 
-              <div className='flex flex-row text-white h-full w-full lg:px-5 px-4 lg:py-11 py-6 lg:gap-x-4 gap-x-2'>
+              <div className='flex flex-row text-white h-full w-full lg:px-5 px-4 lg:py-11 py-5 lg:gap-x-4 gap-x-2'>
                <img src={joebot} className='lg:flex hidden lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] self-center'/>
-               <div className='w-full'>
+               <div className='w-full overflow-hidden'>
                <Typed
                 className='font-josefin lg:text-xl text-base'
                 strings={[

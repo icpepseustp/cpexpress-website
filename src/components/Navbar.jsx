@@ -1,10 +1,16 @@
 import React from 'react'
-import { Link, useResolvedPath, useMatch } from "react-router-dom";
+import { Link, useResolvedPath, useMatch, useNavigate } from "react-router-dom";
 import logo from '../assets/images/icpepse-logo.png'
 import { FaBars, FaTimes } from "react-icons/fa"
 
+import { UserAuth } from "../auth/Auth";
+
 export default function Navbar(props) {
-    const [navbarOpen, setNavbarOpen] = React.useState(false);
+    
+  const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const { user, logout } = UserAuth();
+  const navigate = useNavigate();
+
     return (
       <>
         <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-transparent">
@@ -39,6 +45,18 @@ export default function Navbar(props) {
                 <CustomLinks to={'/'}>Dashboard</CustomLinks>
                 <CustomLinks to={'/how'}>How It Works</CustomLinks>
                 <CustomLinks to={'/contact'}>Contact</CustomLinks>
+                { user && <button
+                 onClick={
+                  async () => {
+                    try {
+                      await logout();
+                      navigate("/admin");
+                    } catch (e) {
+                      console.log(e.message);
+                    }
+                  }
+                 }
+                 className='w-[120px] bg-[#1C3E97] h-[35px] rounded-lg text-white'>Logout</button>}
               </ul>
            
             </div>

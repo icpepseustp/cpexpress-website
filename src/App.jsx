@@ -6,6 +6,10 @@ import Wrapper from './components/Wrapper'
 import { Route } from "react-router-dom";
 import Modal from './components/Modal'
 import { toast } from 'react-toastify'
+import ProtectedRoute from './components/ProtectedRoute'
+import { AuthContextProvider } from "./auth/Auth";
+import AdminDashboard from './pages/AdminDashboard'
+import AdminLogin from './pages/AdminLogin'
 
 function App() {
 
@@ -47,26 +51,42 @@ function App() {
         <Modal className='absolute' toggleModal={toggleModal} userId={userId} showError={showError} showSuccess={showSuccess}/>
       )
     }
-    <Wrapper show={show} openNav={openNav}>
-        <Route
-          path='/'
-          element={
-            <Dashboard toggleModal={toggleModal} setId={setId}/>
-          }
-        />
-        <Route
-          path='/how'
-          element={
-            <HowItWorks/>
-          }
-        />
-        <Route
-          path='/contact'
-          element={
-            <Contact/>
-          }
-        />
-    </Wrapper>
+    <AuthContextProvider>
+      <Wrapper show={show} openNav={openNav}>
+          <Route
+            path='/'
+            element={
+              <Dashboard toggleModal={toggleModal} setId={setId}/>
+            }
+          />
+          <Route
+            path='/how'
+            element={
+              <HowItWorks/>
+            }
+          />
+          <Route
+            path='/contact'
+            element={
+              <Contact/>
+            }
+          />
+          <Route
+            path='/login'
+            element={
+              <AdminLogin/>
+            }
+          />
+          <Route
+            path='/admin'
+            element = {
+              <ProtectedRoute>
+                  <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+      </Wrapper>
+    </AuthContextProvider>
     </div>
   )
 }

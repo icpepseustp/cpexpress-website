@@ -53,6 +53,7 @@ function App() {
     }
       <Wrapper show={show} openNav={openNav}>
           <Route
+            exact
             path='/'
             element={
               <Dashboard toggleModal={toggleModal} setId={setId}/>
@@ -71,13 +72,13 @@ function App() {
             }
           />
           <Route
-            path='/login'
+            path='/admin-login'
             element={
               <AdminLogin/>
             }
           />
           <Route
-            path='/admin'
+            path='/admin-ds'
             element = {
               <ProtectedRoute>
                   <AdminDashboard />

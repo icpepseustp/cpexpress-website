@@ -44,7 +44,7 @@ export default function Navbar(props) {
                     setNavbarOpen(!navbarOpen)
                   }
               }} className=" flex flex-col lg:flex-row list-none lg:ml-auto w-full items-center min-w-max lg:w-min">
-                { user && <CustomLinks to={'/admin'}>Admin Dashboard</CustomLinks>}
+                { user && <CustomLinks to={'/admin-ds'}>Admin Dashboard</CustomLinks>}
                 <CustomLinks to={'/'}>Dashboard</CustomLinks>
                 <CustomLinks to={'/how'}>How It Works</CustomLinks>
                 <CustomLinks to={'/contact'}>Contact</CustomLinks>
@@ -53,7 +53,7 @@ export default function Navbar(props) {
                   async () => {
                     try {
                       await logout();
-                      navigate("/admin");
+                      navigate("/admin-login");
                     } catch (e) {
                       console.log(e.message);
                     }

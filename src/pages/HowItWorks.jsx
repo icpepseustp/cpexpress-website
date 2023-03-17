@@ -1,19 +1,25 @@
 import React from "react";
 import ComeAndShare from "../assets/images/come-share.png";
+import ComeAndShare2 from "../assets/images/come-share-2.png";
 import tile_bg_1 from "../assets/images/come-bg.png";
 
 function HowItWorks() {
     return (
-        <div className="lg:px-36 lg:h-screen h-full text-white pb-8 lg:py-16">
+        <div className="lg:px-36 h-full text-white pb-8">
             <div className="lg:flex lg:gap-x-20 p-4">
-                <div className="flex items-center my-4">
+                <div className="flex items-center justify-center lg:my-4 mt-4 mb-8">
                     <img
-                        className="w-[90%] lg:w-[100%]"
+                        className="lg:flex hidden w-[80%] lg:w-[100%]"
                         src={ComeAndShare}
                         alt="come-share.png"
                     />
+                    <img
+                        className="lg:hidden w-[80%] lg:w-[100%]"
+                        src={ComeAndShare2}
+                        alt="come-share.png"
+                    />
                 </div>
-                <div className="relative w-full lg:h-[100%] h-[100%]">
+                <div className="relative w-full lg:h-[100%]">
                     <img
                         src={tile_bg_1}
                         className="z-[-10] w-full h-full absolute object-fit"

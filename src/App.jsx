@@ -7,7 +7,7 @@ import { Route } from "react-router-dom";
 import Modal from './components/Modal'
 import { toast } from 'react-toastify'
 import ProtectedRoute from './components/ProtectedRoute'
-import { AuthContextProvider } from "./auth/Auth";
+
 import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 
@@ -51,7 +51,6 @@ function App() {
         <Modal className='absolute' toggleModal={toggleModal} userId={userId} showError={showError} showSuccess={showSuccess}/>
       )
     }
-    <AuthContextProvider>
       <Wrapper show={show} openNav={openNav}>
           <Route
             path='/'
@@ -86,7 +85,6 @@ function App() {
             }
           />
       </Wrapper>
-    </AuthContextProvider>
     </div>
   )
 }

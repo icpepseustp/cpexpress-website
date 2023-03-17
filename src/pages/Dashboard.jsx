@@ -97,10 +97,10 @@ function Dashboard(props) {
           <div className='relative w-full lg:h-[200px] h-[140px]'>
               <img src={tile_bg_1} className='z-[-10] w-full h-full absolute object-fit' /> 
               <div className='flex flex-row text-white h-full w-full lg:px-5 px-4 lg:py-11 py-6 lg:gap-x-4 gap-x-2'>
-               <img src={joebot} className='lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] self-center'/>
+               <img src={joebot} className='lg:flex hidden lg:w-[100px] lg:h-[100px] w-[60px] h-[60px] self-center'/>
                <div className='w-full'>
                <Typed
-                className='font-josefin lg:text-xl text-[12px]'
+                className='font-josefin lg:text-xl text-base'
                 strings={[
                     '^1000Feel free to express yourself and share what your mind says.^2000',
                     '^1000Let your voice be heard and spread positivity and kindness.^2000',
@@ -109,7 +109,6 @@ function Dashboard(props) {
                     backSpeed={40}
                     loop />
                </div>
-               {/* <p className='font-josefin text-base'>Feel free to express yourself and share what your mind says.</p> */}
               </div>
           </div>
           <div onClick={() => {
@@ -124,7 +123,7 @@ function Dashboard(props) {
               </div>
           </div>
         </div>
-        <div className='w-full lg:columns-4 columns-2 gap-x-2'>
+        <div className='w-full h-full lg:columns-4 columns-2 gap-x-2'>
             {
               posts.map((post)=> { 
                 return (

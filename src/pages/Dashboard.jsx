@@ -6,6 +6,7 @@ import { FaPlusCircle, FaHeart, FaRegHeart } from "react-icons/fa"
 import { ToastContainer } from 'react-toastify';
 import Typed from 'react-typed';
 import { postRef, updateLike } from '../api/FirebaseApi';
+import Seo from '../components/Seo';
 import 'react-toastify/dist/ReactToastify.css';
 
 import header from '../assets/images/welcome.png'
@@ -70,6 +71,9 @@ function Dashboard(props) {
 
   return (
      <div className='container lg:px-4 px-5 h-full w-full'>
+
+      <Seo title="CpExpress" />
+
       <div className='flex flex-col items-center'>
       <img src={header} className='lg:w-[60%] w-[90%] pt-4 pb-6'/>
       <div className={`flex flex-col w-full ${posts.length > 0 ? 'h-full' : 'h-screen'} py-2 gap-y-2`}>

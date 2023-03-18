@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { postRef, updatePost } from '../api/FirebaseApi';
 import { format} from 'date-fns'
+import Seo from '../components/Seo';
 import tile_bg_3 from '../assets/images/tile-bg-3.png'
 
 function AdminDashboard() {
@@ -47,6 +48,9 @@ function AdminDashboard() {
 
   return (
     <div className='container lg:px-4 px-5 h-full w-full'>
+
+      <Seo title="Admin Dashboard | CpExpress" />
+
       <div className='flex flex-col items-center'>
       <div className={`flex flex-col w-full ${posts.length > 0 ? 'h-full' : 'h-screen'} py-2 gap-y-2`}>
         <div className='flex flex-row w-full h-full gap-x-4 items-center my-4'>

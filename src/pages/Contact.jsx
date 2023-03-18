@@ -1,4 +1,5 @@
 import React from 'react'
+import Seo from '../components/Seo';
 import ContactText from "../assets/images/contact-text.png";
 import ContactText2 from "../assets/images/contact-text-2.png";
 import tile_bg_1 from "../assets/images/tile-bg-1.png"
@@ -17,6 +18,9 @@ import {
 function Contact() {
   return (
     <main className='lg:px-12 lg:h-screen h-full w-full'>
+
+      <Seo title="Contact | CpExpress" />
+
       <section className="flex flex-col lg:flex-row items-center justify-center gap-y-8 pb-8">
         <div className='flex items-center justify-center'>
           <img className="lg:flex hidden shrink lg:w-[68%] w-[48%]" src={ContactText} alt="contact-text"/>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../auth/Auth";
+import Seo from '../components/Seo';
 import { toast, ToastContainer } from 'react-toastify'
 
 import tile_bg_1 from '../assets/images/tile-bg-1.png'
@@ -48,6 +49,9 @@ const handleSubmit =  async (e) => {
 
   return (
     <div className='h-screen w-full px-8 '>
+
+        <Seo title="Admin Login | CpExpress" />
+
         <div className='flex flex-row h-[400px]'>
             <div className='hidden lg:flex lg:w-1/2 px-4 flex-col justify-center items-center'>
                 <h1 className='text-white text-6xl ml-16'>

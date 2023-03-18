@@ -1,4 +1,5 @@
 import React from "react";
+import Seo from '../components/Seo';
 import ComeAndShare from "../assets/images/come-share.png";
 import ComeAndShare2 from "../assets/images/come-share-2.png";
 import tile_bg_1 from "../assets/images/come-bg.png";
@@ -6,6 +7,9 @@ import tile_bg_1 from "../assets/images/come-bg.png";
 function HowItWorks() {
     return (
         <div className="lg:px-36 lg:h-screen h-full text-white pb-8">
+
+            <Seo title="How It Works | CpExpress" />
+
             <div className="lg:flex lg:gap-x-20 p-4">
                 <div className="flex items-center justify-center lg:my-4 mt-4 mb-8">
                     <img

@@ -18,9 +18,7 @@ import {
 function Contact() {
   return (
     <main className='lg:px-12 lg:h-screen h-full w-full'>
-
-      <Seo title="Contact | CpExpress" />
-      
+      <Seo title="Contact | CpExpress" />      
       <section className="flex flex-col lg:flex-row items-center justify-center gap-y-8 pb-8">
         <div className='flex items-center justify-center'>
           <img className="lg:flex hidden shrink lg:w-[68%] w-[48%]" src={ContactText} alt="contact-text"/>

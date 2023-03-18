@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +7,95 @@
 
 @layer base {
   body {
-    @apply bg-[url('../src/assets/images/bg-image.png')];
     @apply font-dmsans;
-    
   }
+
+}
+
+.posts-gradient-border {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="Gradient" gradientUnits="userSpaceOnUse" gradientTransform="rotate(15)"> <stop stop-color="%23365FFF" offset="0" stop-opacity="0"/><stop stop-color="%23365FFF" offset="1" stop-opacity="1" /></linearGradient></defs><rect x="1" y="1" height="100%" width="100%" style="height: calc(100% - 2px);width: calc(100% - 2px);" rx="12" stroke-width="1" fill="none" stroke="url(%23Gradient)"/></svg>');
+  border-radius: 12px;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #c1c5ce;
+}
+
+.Toastify__toast-container {
+  --toastify-toast-width: 450px;
+  
+}
+
+.Toastify__progress-bar--success {
+  color: #1C3E97;
+}
+
+
+:root {
+  --toastify-color-light: #fff;
+  --toastify-color-dark: #121212;
+  --toastify-color-info: #3498db;
+  --toastify-color-success: #1C3E97;
+  --toastify-color-warning: #f1c40f;
+  --toastify-color-error: #e74c3c;
+  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+  --toastify-icon-color-info: var(--toastify-color-info);
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 600px;
+  --toastify-toast-background: #fff;
+  --toastify-toast-min-height: 64px;
+  --toastify-toast-max-height: 800px;
+  --toastify-font-family: sans-serif;
+  --toastify-z-index: 9999;
+
+  --toastify-text-color-light: #757575;
+  --toastify-text-color-dark: #fff;
+
+
+  --toastify-text-color-info: #fff;
+  --toastify-text-color-success: #fff;
+  --toastify-text-color-warning: #fff;
+  --toastify-text-color-error: #fff;
+
+  --toastify-spinner-color: #616161;
+  --toastify-spinner-color-empty-area: #e0e0e0;
+
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    #4cd964,
+    #5ac8fa,
+    #007aff,
+    #34aadc,
+    #5856d6,
+    #ff2d55
+  );
+
+  
+  --toastify-color-progress-dark: #bb86fc;
+  --toastify-color-progress-info: var(--toastify-color-info);
+  --toastify-color-progress-success: var(--toastify-color-success);
+  --toastify-color-progress-warning: var(--toastify-color-warning);
+  --toastify-color-progress-error: var(--toastify-color-error);
 }

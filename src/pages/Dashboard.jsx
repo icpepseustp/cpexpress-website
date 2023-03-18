@@ -70,10 +70,9 @@ function Dashboard(props) {
   }
 
   return (
-     <div className='container lg:px-4 px-5 h-full w-full'>
-
-      <Seo title="CpExpress" />
-
+     <>
+    {/* <Seo title="CpExpress" /> */}
+    <div className='container lg:px-4 px-5 h-full w-full'>     
       <div className='flex flex-col items-center'>
       <img src={header} className='lg:w-[60%] w-[90%] pt-4 pb-6'/>
       <div className={`flex flex-col w-full ${posts.length > 0 ? 'h-full' : 'h-screen'} py-2 gap-y-2`}>
@@ -157,6 +156,7 @@ function Dashboard(props) {
       </div>
       
     </div>
+    </>
   )
 }
 

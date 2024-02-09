@@ -6,7 +6,8 @@ import {
   Timestamp, 
   updateDoc, 
   arrayUnion, 
-  arrayRemove } from 'firebase/firestore'
+  arrayRemove, 
+  getDoc} from 'firebase/firestore'
 
 const postRef = collection(db, 'posts');
 
@@ -54,4 +55,14 @@ const updatePost = async (postId, type) => {
   }
 }
 
-export { addPost, postRef, updateLike, updatePost }
+const getTheme = () => {
+  return getDoc(doc(db, "website", "settings"));
+}
+
+export { 
+  addPost, 
+  postRef, 
+  updateLike, 
+  updatePost,
+  getTheme
+}

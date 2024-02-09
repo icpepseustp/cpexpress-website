@@ -17,8 +17,11 @@ module.exports = {
                 border: "#365FFF",
             },
             fontFamily: {
-                dmsans: ["DM Sans", "sans-serif"],
-                josefin: ["Josefin Sans", "sans-serif"],
+                dmsans: ["DM Sans"],
+                dmserif: ["DM Serif"],
+                'dmserif-italic': ["DM Serif Italic"],
+                josefin: ["Josefin Sans"],
+                alexbrush: ["Alex Brush"],
             },
         },
     },

@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuid } from "uuid";
 import { onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { format } from "date-fns";
 import {
-  FaPlusCircle,
   FaHeart,
   FaRegHeart,
-  FaShare,
-  FaComment,
   FaRegComment,
+  FaRegTrashAlt,
 } from "react-icons/fa";
-import { ToastContainer } from "react-toastify";
-import Typed from "react-typed";
-import { postRef, updateLike } from "../api/FirebaseApi";
+import { deletePost, postRef, updateLike } from "../api/FirebaseApi";
 import Seo from "../components/Seo";
-import "react-toastify/dist/ReactToastify.css";
 import { Backdrop } from "@mui/material";
 
 import header from "../assets/images/title.png";
@@ -22,20 +16,18 @@ import heart_bg from "../assets/images/heart-bg.png";
 import add_post from "../assets/images/add-post.png";
 import spring from "../assets/images/spring.png";
 import AddPost from "../components/AddPost";
+import ShowDialog from "../components/ShowDialog";
 
-function PinkDashboard() {
+function PinkDashboard({ userId, setAlert, setShowAlert }) {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState();
   const [add, setAdd] = useState(false);
-
-  var id = null;
+  const [deleteDialog, setDelete] = useState(null);
 
   useEffect(() => {
     setMonth(format(Date.now(), "MMMM"));
     setDay(format(Date.now(), "dd"));
-    getUserId();
   }, []);
 
   useEffect(() => {
@@ -63,29 +55,18 @@ function PinkDashboard() {
     };
   }, []);
 
-  const getUserId = () => {
-    const user_id = localStorage.getItem("user-id");
-
-    try {
-      if (user_id) {
-        id = JSON.parse(user_id);
-        //setUserId(id);
-      } else {
-        const new_id = uuid().slice(0, 8);
-        id = new_id;
-        localStorage.setItem("user-id", JSON.stringify(id));
-        //setUserId(id);
-      }
-
-      return id;
-    } catch {
-      console.log("error");
-      return null;
-    }
-  };
-
   const updatePostLike = (postId, like) => {
     updateLike(postId, like, userId);
+  };
+
+  const handleDelete = async (postId) => {
+    await deletePost(deleteDialog);
+    setAlert({
+      type: "success",
+      message: "Post has been deleted successfully.",
+      duration: 3000,
+    });
+    setShowAlert(true);
   };
 
   return (
@@ -141,29 +122,29 @@ function PinkDashboard() {
             <div className="w-full h-full lg:columns-4 columns-2 gap-x-2 lg:px-14 py-6">
               {posts.map((post) => {
                 return (
-                  <div className="relative border border-transparent">
+                  <div
+                    key={post.id}
+                    className="relative border border-transparent hover:scale-[102%] transition-all duration-100"
+                  >
                     <div className="absolute top-0 flex w-full">
                       <img
                         src={spring}
                         className="h-10 mx-auto items-center justify-center"
                       />
                     </div>
-
-                    <div
-                      key={post.id}
-                      className="bg-[#E8A48E]/50 w-full mb-2 rounded-[12px] h-full overflow-hidden mt-[14px] pt-4"
-                    >
+                    <div className="bg-[#E8A48E]/50 w-full mb-2 rounded-[12px] h-full overflow-hidden mt-[14px] pt-4">
                       <div className="flex flex-col text-[#CB2A6B] min-h-[200px] w-full lg:px-5 p-4 lg:py-4">
                         <h1 className="font-dmserif text-2xl semi-bold">
-                          {format(
-                            new Date(post.data.created.toDate()),
-                            "ccc, MMM dd"
-                          )}
+                          {post.data.title ??
+                            format(
+                              new Date(post.data.created.toDate()),
+                              "ccc, MMM dd"
+                            )}
                         </h1>
                         <p className="text-[#CB2A6B] text-lg font-dmsans py-2 flex-1">
                           {post.data.body}
                         </p>
-                        <div className="flex flex-row self-end mt-4 gap-x-3 items-center">
+                        <div className="w-full flex flex-row self-start mt-4 gap-x-3 items-center">
                           <div className="flex flex-row items-center gap-1">
                             {post.data.like.includes(userId) ? (
                               <FaHeart
@@ -186,6 +167,16 @@ function PinkDashboard() {
                             <FaRegComment className="w-4 h-4 " />
                             <p className="text-sm">{0}</p>
                           </div>
+                          {post.data.uploader == userId && (
+                            <div className="w-full flex justify-end">
+                              <FaRegTrashAlt
+                                onClick={() => {
+                                  setDelete(post.id);
+                                }}
+                                className="cursor-pointer w-4 h-4 self-end"
+                              />
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -195,6 +186,17 @@ function PinkDashboard() {
             </div>
             <div className="h-10 w-full"></div>
           </div>
+          <ShowDialog
+            title={"Delete Post"}
+            description={`Are you sure you want to delete this post?`}
+            open={!!deleteDialog}
+            close={() => {
+              setDelete(null);
+            }}
+            callback={() => {
+              handleDelete(deleteDialog);
+            }}
+          />
           <Backdrop
             sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
             open={add}
@@ -203,9 +205,11 @@ function PinkDashboard() {
               close={() => {
                 setAdd(false);
               }}
+              userId={userId}
+              setAlert={setAlert}
+              setShowAlert={setShowAlert}
             />
           </Backdrop>
-          <ToastContainer />
         </div>
       </div>
     </>

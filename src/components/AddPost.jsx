@@ -1,8 +1,9 @@
 import { Cancel, Image } from "@mui/icons-material";
 import CircularProgress from "@mui/material/CircularProgress";
 import React, { useState } from "react";
+import { addPost } from "../api/FirebaseApi";
 
-function AddPost({ close }) {
+function AddPost({ close, userId, setAlert, setShowAlert }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [isUploading, setUploading] = useState(false);
@@ -13,6 +14,40 @@ function AddPost({ close }) {
     setBody("");
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setUploading(true);
+
+    const content = {
+      title: title,
+      body: body,
+    };
+
+    addPost(userId, content)
+      .then((_) => {
+        setUploading(false);
+        setAlert({
+          type: "info",
+          message:
+            "Your post has been uploaded successfully. Please wait for the admin approval.",
+          duration: 5000,
+        });
+        setShowAlert(true);
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+        setUploading(false);
+        setAlert({
+          type: "error",
+          message: "Something went wrong. Please try again.",
+          duration: 3000,
+        });
+        setShowAlert(true);
+      });
+  };
+
   return (
     <div className="relative w-[500px] h-[450px] bg-[#EFC3BB] rounded-[20px] mx-4 text-[#CB2A6B]">
       {isUploading && (
@@ -21,7 +56,10 @@ function AddPost({ close }) {
           <p>Uploading, please wait...</p>
         </div>
       )}
-      <div className="w-full h-full flex flex-col py-4 px-6">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full h-full flex flex-col py-4 px-6"
+      >
         <div className="flex flex-row items-center justify-between select-none">
           <h1 className="font-dmserif text-2xl">Speak Your Mind</h1>
           <Cancel
@@ -33,6 +71,7 @@ function AddPost({ close }) {
         </div>
         <div className="flex flex-col py-4 px-1">
           <input
+            required
             type="text"
             placeholder="Title"
             value={title}
@@ -45,6 +84,7 @@ function AddPost({ close }) {
           />
           <p className="self-end py-2 font-bold text-sm">{title.length}/30</p>
           <textarea
+            required
             placeholder="Say something..."
             rows={8}
             value={body}
@@ -59,11 +99,14 @@ function AddPost({ close }) {
             <Image />
             <p className="text-sm font-bold">Add Photo</p>
           </div> */}
-          <button className="select-none w-[100px] h-9 rounded-[10px] bg-[#CB2A6B] text-white text-sm font-bold">
+          <button
+            type="submit"
+            className="select-none w-[100px] h-9 rounded-[10px] bg-[#CB2A6B] text-white text-sm font-bold"
+          >
             Post
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

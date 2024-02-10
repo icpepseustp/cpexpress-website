@@ -7,7 +7,8 @@ import {
   updateDoc, 
   arrayUnion, 
   arrayRemove, 
-  getDoc} from 'firebase/firestore'
+  getDoc,
+  deleteDoc} from 'firebase/firestore'
 
 const postRef = collection(db, 'posts');
 
@@ -15,9 +16,11 @@ const addPost = async (userId, content) => {
    try {
      return await addDoc(postRef, {
        uploader: userId,
-       body: content,
+       title: content.title,
+       body: content.body,
        approved: false,
        like: [],
+       comments: [],
        created: Timestamp.now()
      })
    } catch (err) {
@@ -35,6 +38,10 @@ const updateLike = (postId, like, userId) => {
   } catch(err){
     return false;
   }
+}
+
+const deletePost = async (postId) => {
+  return deleteDoc(doc(db, 'posts', postId));
 }
 
 const updatePost = async (postId, type) => {
@@ -64,5 +71,6 @@ export {
   postRef, 
   updateLike, 
   updatePost,
+  deletePost,
   getTheme
 }

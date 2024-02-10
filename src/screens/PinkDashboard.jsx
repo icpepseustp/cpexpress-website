@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { format } from "date-fns";
 import {
@@ -17,6 +17,7 @@ import add_post from "../assets/images/add-post.png";
 import spring from "../assets/images/spring.png";
 import AddPost from "../components/AddPost";
 import ShowDialog from "../components/ShowDialog";
+import PostComment from "../components/PostComment";
 
 function PinkDashboard({ userId, setAlert, setShowAlert }) {
   const [month, setMonth] = useState("");
@@ -24,6 +25,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
   const [posts, setPosts] = useState([]);
   const [add, setAdd] = useState(false);
   const [deleteDialog, setDelete] = useState(null);
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     setMonth(format(Date.now(), "MMMM"));
@@ -31,9 +33,13 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
   }, []);
 
   useEffect(() => {
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
     const q = query(
       postRef,
       where("approved", "==", true),
+      where("created", ">", today),
       orderBy("created", "desc")
     );
 
@@ -55,6 +61,12 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
     };
   }, []);
 
+  useEffect(() => {
+    if (comments) {
+      refreshComments();
+    }
+  }, [posts]);
+
   const updatePostLike = (postId, like) => {
     updateLike(postId, like, userId);
   };
@@ -67,6 +79,11 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
       duration: 3000,
     });
     setShowAlert(true);
+  };
+
+  const refreshComments = () => {
+    const post = posts.find((post) => post.id == comments.id);
+    setComments(post);
   };
 
   return (
@@ -163,9 +180,16 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
                             )}
                             <p className="text-sm">{post.data.like.length}</p>
                           </div>
-                          <div className="flex flex-row items-center gap-1 cursor-pointer">
+                          <div
+                            onClick={() => {
+                              setComments(post);
+                            }}
+                            className="flex flex-row items-center gap-1 cursor-pointer"
+                          >
                             <FaRegComment className="w-4 h-4 " />
-                            <p className="text-sm">{0}</p>
+                            <p className="text-sm">
+                              {post.data.comments.length}
+                            </p>
                           </div>
                           {post.data.uploader == userId && (
                             <div className="w-full flex justify-end">
@@ -209,6 +233,20 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
               setAlert={setAlert}
               setShowAlert={setShowAlert}
             />
+          </Backdrop>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={!!comments}
+          >
+            {!!comments && (
+              <PostComment
+                close={() => {
+                  setComments(null);
+                }}
+                post={comments}
+                userId={userId}
+              />
+            )}
           </Backdrop>
         </div>
       </div>

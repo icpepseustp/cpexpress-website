@@ -77,7 +77,8 @@ export default function Navbar({ openNav, theme }) {
                       console.log(e.message);
                     }
                   }}
-                  className="w-[120px] bg-[#1C3E97] h-[35px] rounded-lg text-white"
+                  style={{ background: theme["color"]["button"] }}
+                  className="w-[120px] h-[35px] rounded-lg text-white"
                 >
                   Logout
                 </button>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getTheme } from "../api/FirebaseApi";
 import Dashboard from "../screens/Dashboard";
 import PinkDashboard from "../screens/PinkDashboard";
 import { v4 as uuid } from "uuid";
 import UserAlert from "../components/UserAlert";
 
-function ScreenSelector({ theme, toggleModal, setId }) {
+function ScreenSelector({ theme, toggleModal, setId, show, openNav }) {
   const [userId, setUserId] = useState(null);
   const [showAlert, setShowAlert] = useState(false);
   const [alert, setAlert] = useState({});

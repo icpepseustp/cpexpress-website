@@ -3,7 +3,7 @@ import Dashboard from "./screens/Dashboard";
 import HowItWorks from "./pages/HowItWorks";
 import Contact from "./pages/Contact";
 import Wrapper from "./components/Wrapper";
-import { Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Modal from "./components/Modal";
 import { toast } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -14,6 +14,7 @@ import ScreenSelector from "./pages/ScreenSelector";
 import { getTheme } from "./api/FirebaseApi";
 import website from "./assets/website.json";
 import Loader from "./components/Loader";
+import { AuthContextProvider } from "./auth/Auth";
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -74,7 +75,80 @@ function App() {
           showSuccess={showSuccess}
         />
       )}
-      <Wrapper show={show} theme={website["themes"][themeId]} openNav={openNav}>
+      <BrowserRouter>
+        <AuthContextProvider>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Wrapper
+                  show={show}
+                  theme={website["themes"][themeId]}
+                  openNav={openNav}
+                >
+                  <ScreenSelector
+                    theme={website["themes"][themeId]}
+                    toggleModal={toggleModal}
+                    setId={setId}
+                  />
+                </Wrapper>
+              }
+            />
+            <Route
+              path="/how"
+              element={
+                <Wrapper
+                  show={show}
+                  theme={website["themes"][themeId]}
+                  openNav={openNav}
+                >
+                  <HowItWorks />
+                </Wrapper>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <Wrapper
+                  show={show}
+                  theme={website["themes"][themeId]}
+                  openNav={openNav}
+                >
+                  <Contact />
+                </Wrapper>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Wrapper
+                  show={show}
+                  theme={website["themes"][0]}
+                  openNav={openNav}
+                >
+                  <AdminLogin />
+                </Wrapper>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <Wrapper
+                    show={show}
+                    theme={website["themes"][0]}
+                    openNav={openNav}
+                  >
+                    <AdminDashboard />
+                  </Wrapper>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </AuthContextProvider>
+      </BrowserRouter>
+      {/* <Wrapper show={show} theme={website["themes"][themeId]} openNav={openNav}>
         <Route
           exact
           path="/"
@@ -98,7 +172,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-      </Wrapper>
+      </Wrapper> */}
     </div>
   );
 }

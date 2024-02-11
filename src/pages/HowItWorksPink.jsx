@@ -9,7 +9,7 @@ import reminders from "../assets/images/icons/reminders.png";
 
 function HowItWorksPink({ theme }) {
   return (
-    <div className="container text-[#CB2A6B] w-full lg:h-[550px] flex flex-col lg:flex-row gap-y-8 gap-x-14 items-center lg:px-8 pb-8">
+    <div className="container text-[#CB2A6B] w-full lg:h-[550px] flex flex-col lg:flex-row gap-y-8 gap-x-14 items-center px-4 lg:px-8 pb-8">
       <Seo title="How It Works | CpExpress" />
       <div className="lg:my-4 lg:max-w-max">
         <img
@@ -17,12 +17,12 @@ function HowItWorksPink({ theme }) {
           src={ComeAndSharePink}
           alt="come-share.png"
         />
-        <h1 className="flex lg:hidden w-[100%] text-3xl font-dmserif text-center self-center px-8">
+        <h1 className="flex lg:hidden w-[100%] text-3xl font-dmserif text-center self-center px-4">
           Come And Share Your Thoughts And Experiences Anonymously On Our
           Freedom Wall
         </h1>
       </div>
-      <div className="h-full w-[80%] bg-[#E8A48E]/50 flex flex-col p-6 rounded-[20px]">
+      <div className="h-full lg:w-[80%] w-full bg-[#E8A48E]/50 flex flex-col p-6 rounded-[20px]">
         <h1>
           ICpEP.SE - USTP aims to provide a safe space for students to
           anonymously express their thoughts and concerns about their academics
@@ -76,8 +76,11 @@ function HowItWorksPink({ theme }) {
           </div>
         </div>
         <h1 className="font-bold py-4">Platform Reminders:</h1>
-        <div className="flex flex-row gap-4 pb-2">
-          <img src={reminders} className="h-16 w-16 shadow-md rounded-[10px]" />
+        <div className="flex flex-row lg:gap-4 gap-2 pb-2">
+          <img
+            src={reminders}
+            className="lg:h-16 lg:w-16 w-14 h-14 shadow-md rounded-[10px]"
+          />
           <div className="flex flex-col w-[85%] gap-2">
             <div className="flex flex-row gap-2 leading-none text-sm">
               <span>&#x2022;</span>

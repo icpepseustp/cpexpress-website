@@ -117,7 +117,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
                   </h1>
                 </div>
               </div>
-              <div className="text-[#CB2A6B] lg:h-[222px] h-[90px] flex flex-col lg:px-10 items-center lg:mt-9 mt-4 gap-4 justify-center">
+              <div className="text-[#CB2A6B] lg:h-[222px] h-[90px] flex-1 flex flex-col lg:px-10 items-center lg:mt-9 mt-4 gap-4 justify-center">
                 <h1 className="font-dmserif lg:text-5xl text-lg ">
                   Happy Valentine’s Day
                 </h1>

@@ -49,7 +49,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
 
     const unsub = onSnapshot(q, (snapshot) => {
       let data = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-      const size = 20;
+      const size = 40;
 
       if (data.length < 1) return;
 
@@ -203,6 +203,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
                               </div>
                               <div
                                 onClick={() => {
+                                  if (!post.data.comments) return;
                                   setComments(post);
                                 }}
                                 className="flex flex-row items-center gap-1 cursor-pointer"

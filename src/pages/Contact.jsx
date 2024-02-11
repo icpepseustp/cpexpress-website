@@ -1,6 +1,5 @@
 import React from "react";
 import Seo from "../components/Seo";
-import Seo from "../components/Seo";
 import ContactText from "../assets/images/contact-text.png";
 import ContactText2 from "../assets/images/contact-text-2.png";
 import tile_bg_1 from "../assets/images/tile-bg-1.png";

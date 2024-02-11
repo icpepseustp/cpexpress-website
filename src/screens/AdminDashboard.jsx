@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { postRef, updatePost } from "../api/FirebaseApi";
+import { deletePost, postRef, updatePost } from "../api/FirebaseApi";
 import { format } from "date-fns";
 import Seo from "../components/Seo";
 import tile_bg_3 from "../assets/images/tile-bg-3.png";
 
-function AdminDashboard() {
+function AdminDashboard({ setAlert, setShowAlert }) {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState(false);
 
@@ -26,20 +26,20 @@ function AdminDashboard() {
     };
   }, [filter]);
 
+  const handleDelete = async (postId) => {
+    await deletePost(postId);
+    setAlert({
+      type: "success",
+      message: "Post has been deleted successfully.",
+      duration: 3000,
+    });
+    setShowAlert(true);
+  };
+
   const update_post = async (postId, type) => {
     await updatePost(postId, type).then((e) => {
-      const msg1 =
-        type === "approve"
-          ? "approved"
-          : type === "restore"
-          ? "restored"
-          : "deleted";
-      const msg2 =
-        type === "approve"
-          ? "approval"
-          : type === "restore"
-          ? "restoration"
-          : "deletion";
+      const msg1 = type === "approve" ? "approved" : "deleted";
+      const msg2 = type === "approve" ? "approval" : "deletion";
 
       if (e) {
         toast.success(`Post has been ${msg1}.`, {
@@ -83,14 +83,6 @@ function AdminDashboard() {
             >
               Approved
             </button>
-            <button
-              onClick={() => setFilter(null)}
-              className={`w-[80px] h-[28px] text-xs ${
-                filter == null ? "border-border bg-[#1C3E97]" : "border-white"
-              } border-[1px]  text-white rounded-md`}
-            >
-              Deleted
-            </button>
           </div>
           <div className="w-full h-full lg:columns-4 columns-2 gap-x-2 pb-[300px]">
             {posts.map((post) => {
@@ -110,7 +102,7 @@ function AdminDashboard() {
                         "ccc, MMM dd"
                       )}
                     </h1>
-                    <p className="font-[100] text-sm font-dmsans py-2">
+                    <p className="text-sm font-dmsans py-2 text-white">
                       {post.data.body}
                     </p>
                     <div className="flex flex-row w-full mt-4 gap-x-2 items-center">
@@ -122,30 +114,12 @@ function AdminDashboard() {
                           Approve
                         </button>
                       )}
-                      {filter == false && (
-                        <button
-                          onClick={() => update_post(post.id, "delete")}
-                          className="w-[60px] h-[28px] text-xs text-white"
-                        >
-                          Delete
-                        </button>
-                      )}
-                      {filter == null && (
-                        <button
-                          onClick={() => update_post(post.id, "restore")}
-                          className="w-[65px] h-[28px] text-xs border-white border-[1px] bg-[#1C3E97] text-white rounded-md"
-                        >
-                          Restore
-                        </button>
-                      )}
-                      {filter && (
-                        <button
-                          onClick={() => update_post(post.id, "delete")}
-                          className="w-[60px] h-[28px] text-xs border-white border-[1px] text-white rounded-md"
-                        >
-                          Delete
-                        </button>
-                      )}
+                      <button
+                        onClick={() => handleDelete(post.id)}
+                        className="w-[60px] h-[28px] text-xs border-white border-[1px] text-white rounded-md"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>

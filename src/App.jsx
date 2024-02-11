@@ -16,6 +16,7 @@ import website from "./assets/website.json";
 import Loader from "./components/Loader";
 import { AuthContextProvider } from "./auth/Auth";
 import HowItWorksPink from "./pages/HowItWorksPink";
+import UserAlert from "./components/UserAlert";
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -24,6 +25,8 @@ function App() {
   const [isLoading, setLoading] = useState(true);
 
   const [themeId, setThemeId] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alert, setAlert] = useState({});
 
   useEffect(() => {
     getTheme()
@@ -76,6 +79,15 @@ function App() {
           showSuccess={showSuccess}
         />
       )}
+      {showAlert && (
+        <UserAlert
+          type={alert.type}
+          message={alert.message}
+          duration={alert.duration}
+          showAlert={showAlert}
+          setShowAlert={setShowAlert}
+        />
+      )}
       <BrowserRouter>
         <AuthContextProvider>
           <Routes>
@@ -92,6 +104,8 @@ function App() {
                     theme={website["themes"][themeId]}
                     toggleModal={toggleModal}
                     setId={setId}
+                    setAlert={setAlert}
+                    setShowAlert={setShowAlert}
                   />
                 </Wrapper>
               }
@@ -145,7 +159,10 @@ function App() {
                     theme={website["themes"][0]}
                     openNav={openNav}
                   >
-                    <AdminDashboard />
+                    <AdminDashboard
+                      setAlert={setAlert}
+                      setShowAlert={setShowAlert}
+                    />
                   </Wrapper>
                 </ProtectedRoute>
               }

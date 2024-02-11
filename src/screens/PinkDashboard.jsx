@@ -98,27 +98,27 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
         <div className="flex flex-col items-center">
           <img src={header} className="lg:w-[45%] w-[70%] pt-4 mb-10" />
           <div className="my-4 relative w-full lg:h-72">
-            <div className="z-[-1] lg:top-9 top-4 absolute w-full lg:h-[222px] h-[111px] bg-[#E8A48E]/50"></div>
-            <div className="flex flex-row w-full h-full lg:px-14 px-8 gap-4">
-              <div className="relative w-[150px] lg:w-[300px] lg:h-full h-[140px]">
+            <div className="z-[-1] lg:top-9 top-4 absolute w-full lg:h-[222px] h-[90px] bg-[#E8A48E]/50"></div>
+            <div className="flex flex-row w-full h-full lg:px-14 px-2 gap-4">
+              <div className="relative w-[120px] lg:w-[300px] lg:h-full h-[120px]">
                 <img
                   src={heart_bg}
                   className="z-[-1] lg:w-full  h-full absolute object-fit"
                 />
                 <div className="text-white flex flex-col lg:px-14 lg:py-12 px-6 py-4">
-                  <h3 className="lg:text-2xl text-lg font-dmserif-italic lg:pb-2 pb-2 self-end">
+                  <h3 className="lg:text-2xl text-sm font-dmserif-italic lg:pb-2 pb-2 self-end">
                     Today Is...
                   </h3>
-                  <h1 className="font-alexbrush lg:text-6xl text-2xl semi-bold lg:self-center self-end">
+                  <h1 className="font-alexbrush lg:text-6xl text-xl semi-bold lg:self-center self-end">
                     {month}
                   </h1>
-                  <h1 className="font-alexbrush lg:text-8xl text-2xl semi-bold self-end">
+                  <h1 className="font-alexbrush lg:text-8xl text-xl semi-bold self-end">
                     {day}
                   </h1>
                 </div>
               </div>
-              <div className="text-[#CB2A6B] lg:h-[222px] h-[111px] flex-1 flex flex-col lg:px-10 px-2 lg:mt-9 mt-4 gap-4 justify-center">
-                <h1 className="font-dmserif lg:text-5xl text-2xl">
+              <div className="text-[#CB2A6B] lg:h-[222px] h-[90px] flex flex-col lg:px-10 items-center lg:mt-9 mt-4 gap-4 justify-center">
+                <h1 className="font-dmserif lg:text-5xl text-lg ">
                   Happy Valentine’s Day
                 </h1>
                 <p className="font-dmserif-italic text-xl lg:flex hidden">
@@ -139,7 +139,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
             </div>
           </div>
           <div
-            className={`flex flex-col w-full h-full py-2 gap-y-2 lg:px-0 px-8`}
+            className={`flex flex-col w-full h-full py-2 gap-y-2 lg:px-0 px-2`}
           >
             {isLoading ? (
               <div className="flex flex-col w-full h-full items-center justify-center">
@@ -165,7 +165,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
                         <div className="absolute top-0 flex w-full">
                           <img
                             src={spring}
-                            className="lg:h-10 h-7 mx-auto items-center justify-center"
+                            className="lg:h-10 h-6 mx-auto items-center justify-center"
                           />
                         </div>
                         <div className="bg-[#E8A48E]/50 w-full mb-2 rounded-[12px] h-full overflow-hidden lg:mt-[14px] mt-[8px] pt-4">

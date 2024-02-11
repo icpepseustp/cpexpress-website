@@ -157,7 +157,7 @@ function PostComment({ post, close, userId }) {
                             })}
                           </span>
                         </p>
-                        {data.uploader == userId && (
+                        {(data.uploader == userId || userId == "admin") && (
                           <div title="Delete comment">
                             <Close
                               onClick={() => {

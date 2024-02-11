@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { deletePost, postRef, updatePost } from "../api/FirebaseApi";
+import {
+  deletePost,
+  postRef,
+  updateLike,
+  updatePost,
+} from "../api/FirebaseApi";
 import { format } from "date-fns";
 import Seo from "../components/Seo";
 import tile_bg_3 from "../assets/images/tile-bg-3.png";
+import {
+  FaHeart,
+  FaRegComment,
+  FaRegHeart,
+  FaRegTrashAlt,
+} from "react-icons/fa";
+import PostComment from "../components/PostComment";
+import { Backdrop } from "@mui/material";
 
 function AdminDashboard({ setAlert, setShowAlert }) {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState(false);
+  const [deleteDialog, setDelete] = useState(null);
+  const [comments, setComments] = useState(null);
+  const userId = "admin";
 
   useEffect(() => {
     const q = query(
@@ -53,6 +69,21 @@ function AdminDashboard({ setAlert, setShowAlert }) {
         });
       }
     });
+  };
+
+  useEffect(() => {
+    if (comments) {
+      refreshComments();
+    }
+  }, [posts]);
+
+  const updatePostLike = (postId, like) => {
+    updateLike(postId, like, userId);
+  };
+
+  const refreshComments = () => {
+    const post = posts.find((post) => post.id == comments.id);
+    setComments(post);
   };
 
   return (
@@ -106,20 +137,67 @@ function AdminDashboard({ setAlert, setShowAlert }) {
                       {post.data.body}
                     </p>
                     <div className="flex flex-row w-full mt-4 gap-x-2 items-center">
-                      {filter == false && (
-                        <button
-                          onClick={() => update_post(post.id, "approve")}
-                          className="w-[65px] h-[28px] text-xs border-white border-[1px] bg-[#1C3E97] text-white rounded-md"
-                        >
-                          Approve
-                        </button>
+                      {!filter ? (
+                        <div className="flex flex-row items-center gap-2">
+                          <button
+                            onClick={() => update_post(post.id, "approve")}
+                            className="w-[65px] h-[28px] text-xs border-white border-[1px] bg-[#1C3E97] text-white rounded-md"
+                          >
+                            Approve
+                          </button>
+
+                          <button
+                            onClick={() => handleDelete(post.id)}
+                            className="w-[60px] h-[28px] text-xs border-white border-[1px] text-white rounded-md"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="w-full flex flex-row self-start mt-4 gap-x-3 items-center">
+                          <div className="flex flex-row items-center gap-1">
+                            {post.data.like.includes(userId) ? (
+                              <FaHeart
+                                onClick={() => {
+                                  updatePostLike(post.id, false);
+                                }}
+                                className="w-4 h-4 cursor-pointer"
+                              />
+                            ) : (
+                              <FaRegHeart
+                                onClick={() => {
+                                  updatePostLike(post.id, true);
+                                }}
+                                className="w-4 h-4 cursor-pointer"
+                              />
+                            )}
+                            <p className="text-sm">{post.data.like.length}</p>
+                          </div>
+                          <div
+                            onClick={() => {
+                              if (!post.data.comments) return;
+                              setComments(post);
+                            }}
+                            className="flex flex-row items-center gap-1 cursor-pointer"
+                          >
+                            <FaRegComment className="w-4 h-4 " />
+                            <p className="text-sm">
+                              {!post.data.comments
+                                ? 0
+                                : post.data.comments.length}
+                            </p>
+                          </div>
+
+                          <div className="w-full flex justify-end">
+                            <FaRegTrashAlt
+                              onClick={() => {
+                                handleDelete(post.id);
+                              }}
+                              className="cursor-pointer w-4 h-4 self-end"
+                            />
+                          </div>
+                        </div>
                       )}
-                      <button
-                        onClick={() => handleDelete(post.id)}
-                        className="w-[60px] h-[28px] text-xs border-white border-[1px] text-white rounded-md"
-                      >
-                        Delete
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -129,6 +207,20 @@ function AdminDashboard({ setAlert, setShowAlert }) {
           <div className="h-10 w-full"></div>
         </div>
         <ToastContainer />
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={!!comments}
+        >
+          {!!comments && (
+            <PostComment
+              close={() => {
+                setComments(null);
+              }}
+              post={comments}
+              userId={userId}
+            />
+          )}
+        </Backdrop>
       </div>
     </div>
   );

@@ -9,14 +9,18 @@ import reminders from "../assets/images/icons/reminders.png";
 
 function HowItWorksPink({ theme }) {
   return (
-    <div className="container text-[#CB2A6B] w-full h-[550px] flex flex-row gap-x-14 items-center px-8 pb-8">
+    <div className="container text-[#CB2A6B] w-full lg:h-[550px] flex flex-col lg:flex-row gap-y-8 gap-x-14 items-center lg:px-8 pb-8">
       <Seo title="How It Works | CpExpress" />
-      <div className="lg:my-4">
+      <div className="lg:my-4 lg:max-w-max">
         <img
-          className="lg:flex hidden w-full lg:w-[100%]"
+          className="lg:flex hidden"
           src={ComeAndSharePink}
           alt="come-share.png"
         />
+        <h1 className="flex lg:hidden w-[100%] text-3xl font-dmserif text-center self-center px-8">
+          Come And Share Your Thoughts And Experiences Anonymously On Our
+          Freedom Wall
+        </h1>
       </div>
       <div className="h-full w-[80%] bg-[#E8A48E]/50 flex flex-col p-6 rounded-[20px]">
         <h1>
@@ -27,7 +31,7 @@ function HowItWorksPink({ theme }) {
           messages displayed are appropriate for a public space.
         </h1>
         <h1 className="font-bold py-4">How to use this platform:</h1>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-2 grid-flow-cols-1 gap-4">
           <div className="flex flex-row gap-2 items-center">
             <img
               src={add_post}

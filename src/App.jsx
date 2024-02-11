@@ -15,6 +15,7 @@ import { getTheme } from "./api/FirebaseApi";
 import website from "./assets/website.json";
 import Loader from "./components/Loader";
 import { AuthContextProvider } from "./auth/Auth";
+import HowItWorksPink from "./pages/HowItWorksPink";
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -65,7 +66,7 @@ function App() {
   return isLoading ? (
     <Loader loading_msg="Loading, please wait..." />
   ) : (
-    <div className="relative w-full">
+    <div className="relative w-full h-full">
       {modal && (
         <Modal
           className="absolute"
@@ -103,7 +104,11 @@ function App() {
                   theme={website["themes"][themeId]}
                   openNav={openNav}
                 >
-                  <HowItWorks />
+                  {themeId == 0 ? (
+                    <HowItWorks theme={website["themes"][themeId]} />
+                  ) : (
+                    <HowItWorksPink theme={website["themes"][themeId]} />
+                  )}
                 </Wrapper>
               }
             />
@@ -115,7 +120,7 @@ function App() {
                   theme={website["themes"][themeId]}
                   openNav={openNav}
                 >
-                  <Contact />
+                  <Contact theme={website["themes"][themeId]} />
                 </Wrapper>
               }
             />

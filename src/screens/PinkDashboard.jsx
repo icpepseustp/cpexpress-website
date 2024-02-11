@@ -34,7 +34,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
 
   useEffect(() => {
     const today = new Date();
-    today.setUTCHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
     const q = query(
       postRef,

@@ -64,9 +64,11 @@ export default function Navbar({ openNav, theme }) {
               <CustomLinks to={"/how"} theme={theme}>
                 How It Works
               </CustomLinks>
-              <CustomLinks to={"/contact"} theme={theme}>
-                Contact
-              </CustomLinks>
+              {theme.id == 0 && (
+                <CustomLinks to={"/contact"} theme={theme}>
+                  Contact
+                </CustomLinks>
+              )}
               {user && (
                 <button
                   onClick={async () => {

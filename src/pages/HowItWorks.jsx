@@ -4,7 +4,7 @@ import ComeAndShare from "../assets/images/come-share.png";
 import ComeAndShare2 from "../assets/images/come-share-2.png";
 import tile_bg_1 from "../assets/images/come-bg.png";
 
-function HowItWorks({ theme }) {
+function HowItWorks() {
   return (
     <div className="lg:px-36 lg:h-screen h-full text-white pb-8">
       <Seo title="How It Works | CpExpress" />

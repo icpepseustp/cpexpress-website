@@ -6,9 +6,7 @@ import pinkBg from "../assets/images/pink-bg.png";
 
 function Wrapper({ show, theme, openNav, children }) {
   return (
-    <div
-      className={`w-full relative ${show ? "h-full" : "h-screen"} font-dmsans`}
-    >
+    <div className={`w-full h-full font-dmsans`}>
       <img
         className="fixed w-full h-screen z-[-10]"
         src={theme["background"]}

@@ -1,0 +1,22 @@
+{
+  "themes": [
+    {
+      "id": 0,
+      "name": "standard",
+      "background": "/images/background.png",
+      "color": {
+        "text": "white",
+        "button": "#1C3E97"
+      }
+    },
+    {
+      "id": 1,
+      "name": "valentines",
+      "background": "/images/pink-bg.png",
+      "color": {
+        "text": "#CB2A6B",
+        "button": "#CB2A6B"
+      }
+    }
+  ]
+}

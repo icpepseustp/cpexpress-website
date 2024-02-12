@@ -56,7 +56,7 @@ function PostComment({ post, close, userId }) {
   }, [post]);
 
   return (
-    <div className="relative w-[450px] lg:h-[90%] h-[80%] text-[#CB2A6B] flex items-center mx-2">
+    <div className="relative w-[450px] lg:h-[90%] h-[80%] text-[#CB2A6B] flex items-center mx-2 lg:mx-0">
       <img
         src="/images/pink-bg.png"
         className="z-[-1] w-full h-full absolute object-fit rounded-[20px]"
@@ -76,10 +76,10 @@ function PostComment({ post, close, userId }) {
             <div className="absolute top-0 flex w-full">
               <img
                 src={spring}
-                className="h-10 mx-auto items-center justify-center"
+                className="lg:h-10 h-8 mx-auto items-center justify-center"
               />
             </div>
-            <div className="bg-[#E8A48E]/50 w-full mb-2 rounded-[12px] mt-[14px] pt-4">
+            <div className="bg-[#E8A48E]/50 w-full mb-2 rounded-[12px] lg:mt-[14px] mt-[12px] pt-4">
               <div className="flex flex-col text-[#CB2A6B] min-h-[150px] w-full lg:px-5 p-4 lg:py-4">
                 <h1 className="font-dmserif text-xl semi-bold">
                   {post.data.title ??

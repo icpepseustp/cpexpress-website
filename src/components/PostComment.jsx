@@ -56,7 +56,7 @@ function PostComment({ post, close, userId }) {
   }, [post]);
 
   return (
-    <div className="relative w-[450px] h-[90%] text-[#CB2A6B]">
+    <div className="relative w-[450px] lg:h-[90%] h-[80%] text-[#CB2A6B] flex items-center mx-2">
       <img
         src="/images/pink-bg.png"
         className="z-[-1] w-full h-full absolute object-fit rounded-[20px]"

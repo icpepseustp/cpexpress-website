@@ -128,10 +128,11 @@ function AdminDashboard({ setAlert, setShowAlert }) {
                   />
                   <div className="flex flex-col text-white h-full w-full lg:px-5 p-4 lg:py-4">
                     <h1 className="font-josefin text-xl semi-bold">
-                      {format(
-                        new Date(post.data.created.toDate()),
-                        "ccc, MMM dd"
-                      )}
+                      {post.data.title ??
+                        format(
+                          new Date(post.data.created.toDate()),
+                          "ccc, MMM dd"
+                        )}
                     </h1>
                     <p className="text-sm font-dmsans py-2 text-white">
                       {post.data.body}

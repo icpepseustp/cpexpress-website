@@ -37,13 +37,16 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
   }, []);
 
   useEffect(() => {
-    const today = new Date("2023-02-9");
-    today.setHours(0, 0, 0, 0);
+    const start = new Date("2024-02-13");
+    start.setHours(0, 0, 0, 0);
+    const end = new Date("2024-02-16");
+    end.setHours(0, 0, 0, 0);
 
     const q = query(
       postRef,
       where("approved", "==", true),
-      where("created", ">", today),
+      where("created", ">", start),
+      where("created", "<", end),
       orderBy("created", "desc")
     );
 
@@ -51,7 +54,10 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
       let data = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
       const size = 40;
 
-      if (data.length < 1) return;
+      if (data.length < 1) {
+        setLoading(false);
+        return;
+      }
 
       data = Array.from({ length: Math.ceil(data.length / size) }, (v, i) =>
         data.slice(i * size, i * size + size)
@@ -117,7 +123,7 @@ function PinkDashboard({ userId, setAlert, setShowAlert }) {
                   </h1>
                 </div>
               </div>
-              <div className="text-[#CB2A6B] lg:h-[222px] h-[90px] flex-1 flex flex-col lg:px-10 items-center lg:mt-9 mt-4 gap-4 justify-center">
+              <div className="text-[#CB2A6B] lg:h-[222px] h-[90px] flex-1 flex flex-col lg:px-10 lg:items-start items-center lg:mt-9 mt-4 gap-4 justify-center">
                 <h1 className="font-dmserif lg:text-5xl text-lg ">
                   Happy Valentine’s Day
                 </h1>

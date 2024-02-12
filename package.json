@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.9",
+    "@mui/material": "^5.15.9",
     "date-fns": "^2.29.3",
     "draft-js": "^0.11.7",
     "firebase": "^9.17.1",
@@ -22,6 +26,7 @@
     "react-spinners": "^0.13.8",
     "react-toastify": "^9.1.1",
     "react-typed": "^1.2.0",
+    "styled-components": "^6.1.8",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

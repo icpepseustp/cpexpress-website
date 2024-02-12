@@ -1,27 +1,20 @@
-import React from 'react'
-import { Routes } from 'react-router'
-import Navbar from './Navbar'
-import background from '../assets/images/background.png'
-import { AuthContextProvider } from "../auth/Auth";
+import React from "react";
 
-function Wrapper({children, ...props}) {
+import Navbar from "./Navbar";
+import background from "../assets/images/background.png";
+import pinkBg from "../assets/images/pink-bg.png";
+
+function Wrapper({ show, theme, openNav, children }) {
   return (
-    <div className={`relative ${props.show ? 'h-full':'h-screen' }`}>
-        <img className='absolute w-full h-full object-cover z-[-10]' src={background}/>
-          <AuthContextProvider>
-            <Navbar openNav={props.openNav}/>       
-            {
-              props.show && 
-              (
-                <Routes>
-                  {children}
-                </Routes>
-              
-              )
-            }
-          </AuthContextProvider>
+    <div className={`w-full h-full font-dmsans`}>
+      <img
+        className="fixed w-full h-screen z-[-10]"
+        src={theme["background"]}
+      />
+      <Navbar theme={theme} openNav={openNav} />
+      {show && children}
     </div>
-  )
+  );
 }
 
-export default Wrapper
+export default Wrapper;

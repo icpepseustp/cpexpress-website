@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import Dashboard from "../screens/Dashboard";
 import PinkDashboard from "../screens/PinkDashboard";
 import { v4 as uuid } from "uuid";
+import { UserAuth } from "../auth/Auth";
 
 function ScreenSelector({ theme, toggleModal, setId, setShowAlert, setAlert }) {
   const [userId, setUserId] = useState(null);
+  const { user } = UserAuth();
 
   useEffect(() => {
     const user_id = localStorage.getItem("user-id");
@@ -27,12 +29,20 @@ function ScreenSelector({ theme, toggleModal, setId, setShowAlert, setAlert }) {
   return (
     <>
       {theme.id == 0 ? (
-        <Dashboard userId={userId} toggleModal={toggleModal} setId={setId} />
+        <Dashboard
+          setAlert={setAlert}
+          setShowAlert={setShowAlert}
+          userId={userId}
+          user={user}
+          theme={theme}
+        />
       ) : (
         <PinkDashboard
           setAlert={setAlert}
           setShowAlert={setShowAlert}
           userId={userId}
+          user={user}
+          theme={theme}
         />
       )}
     </>

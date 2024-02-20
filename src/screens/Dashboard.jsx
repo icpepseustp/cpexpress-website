@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { format } from "date-fns";
-import { FaPlusCircle, FaHeart, FaRegHeart } from "react-icons/fa";
-import { ToastContainer } from "react-toastify";
+import {
+  FaPlusCircle,
+  FaHeart,
+  FaRegHeart,
+  FaRegComment,
+  FaRegTrashAlt,
+} from "react-icons/fa";
+import { Backdrop } from "@mui/material";
 import Typed from "react-typed";
-import { postRef, updateLike } from "../api/FirebaseApi";
+import { deletePost, postRef, updateLike } from "../api/FirebaseApi";
 import Seo from "../components/Seo";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,25 +20,31 @@ import tile_bg_1 from "../assets/images/tile-bg-1.png";
 import tile_bg_2 from "../assets/images/tile-bg-2.png";
 import tile_bg_3 from "../assets/images/tile-bg-3.png";
 import joebot from "../assets/images/joebot.png";
+import ShowDialog from "../components/ShowDialog";
+import AddPost from "../components/AddPost";
+import PostComment from "../components/PostComment";
 
-function Dashboard(props) {
+function Dashboard({ userId, setAlert, setShowAlert, user, theme }) {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [posts, setPosts] = useState([]);
-  const [userId, setUserId] = useState();
-
-  var id = null;
+  const [deleteDialog, setDelete] = useState(null);
+  const [comments, setComments] = useState(null);
+  const [add, setAdd] = useState(false);
 
   useEffect(() => {
     setMonth(format(Date.now(), "MMM"));
     setDay(format(Date.now(), "dd"));
-    getUserId();
   }, []);
 
   useEffect(() => {
+    const start = new Date("2024-02-13");
+    start.setHours(0, 0, 0, 0);
+
     const q = query(
       postRef,
-      where("approved", "==", 5),
+      where("created", ">", start),
+      where("approved", "==", true),
       orderBy("created", "desc")
     );
 
@@ -45,29 +57,18 @@ function Dashboard(props) {
     };
   }, []);
 
-  const getUserId = () => {
-    const user_id = localStorage.getItem("user-id");
-
-    try {
-      if (user_id) {
-        id = JSON.parse(user_id);
-        setUserId(id);
-      } else {
-        const new_id = uuid().slice(0, 8);
-        id = new_id;
-        localStorage.setItem("user-id", JSON.stringify(id));
-        setUserId(id);
-      }
-
-      return id;
-    } catch {
-      console.log("error");
-      return null;
-    }
-  };
-
   const updatePostLike = (postId, like) => {
     updateLike(postId, like, userId);
+  };
+
+  const handleDelete = async (postId) => {
+    await deletePost(deleteDialog);
+    setAlert({
+      type: "success",
+      message: "Post has been deleted successfully.",
+      duration: 3000,
+    });
+    setShowAlert(true);
   };
 
   return (
@@ -136,10 +137,7 @@ function Dashboard(props) {
               </div>
               <div
                 onClick={() => {
-                  if (userId) {
-                    props.setId(userId);
-                    props.toggleModal();
-                  }
+                  setAdd(true);
                 }}
                 className="cursor-pointer relative w-full lg:h-[200px] h-[140px]"
               >
@@ -161,37 +159,62 @@ function Dashboard(props) {
                   >
                     <img
                       src={tile_bg_3}
-                      className="z-[-10] w-full absolute object-cover "
+                      className="z-[-10] w-full h-full absolute object-fit"
                     />
                     <div className="flex flex-col text-white h-full w-full lg:px-5 p-4 lg:py-4">
-                      <h1 className="font-josefin text-xl semi-bold">
-                        {format(
-                          new Date(post.data.created.toDate()),
-                          "ccc, MMM dd"
-                        )}
+                      <h1 className="font-josefin lg:text-xl text-lg semi-bold">
+                        {post.data.title ??
+                          format(
+                            new Date(post.data.created.toDate()),
+                            "ccc, MMM dd"
+                          )}
                       </h1>
-                      <p className="font-[100] text-sm font-dmsans py-2">
+                      <p className="text-sm font-dmsans py-2">
                         {post.data.body}
                       </p>
-                      <div className="flex flex-row w-full mt-4 gap-x-2 items-center">
-                        {post.data.like.includes(userId) ? (
-                          <FaHeart
-                            onClick={() => {
-                              updatePostLike(post.id, false);
-                            }}
-                            className="w-4 h-4 cursor-pointer"
-                          />
-                        ) : (
-                          <FaRegHeart
-                            onClick={() => {
-                              updatePostLike(post.id, true);
-                            }}
-                            className="w-4 h-4 cursor-pointer"
-                          />
+                      <div className="w-full flex flex-row self-start mt-4 gap-x-3 items-center">
+                        <div className="flex flex-row items-center gap-1">
+                          {post.data.like.includes(userId) ? (
+                            <FaHeart
+                              onClick={() => {
+                                updatePostLike(post.id, false);
+                              }}
+                              className="w-4 h-4 cursor-pointer"
+                            />
+                          ) : (
+                            <FaRegHeart
+                              onClick={() => {
+                                updatePostLike(post.id, true);
+                              }}
+                              className="w-4 h-4 cursor-pointer"
+                            />
+                          )}
+                          <p className="text-sm">{post.data.like.length}</p>
+                        </div>
+                        {/* <div
+                          onClick={() => {
+                            if (!post.data.comments) return;
+                            setComments(post);
+                          }}
+                          className="flex flex-row items-center gap-1 cursor-pointer"
+                        >
+                          <FaRegComment className="w-4 h-4 " />
+                          <p className="text-sm">
+                            {!post.data.comments
+                              ? 0
+                              : post.data.comments.length}
+                          </p>
+                        </div> */}
+                        {(post.data.uploader == userId || !!user) && (
+                          <div className="w-full flex justify-end">
+                            <FaRegTrashAlt
+                              onClick={() => {
+                                setDelete(post.id);
+                              }}
+                              className="cursor-pointer w-4 h-4 self-end"
+                            />
+                          </div>
                         )}
-                        <p className="text-white text-sm">
-                          {post.data.like.length}
-                        </p>
                       </div>
                     </div>
                   </div>
@@ -200,7 +223,45 @@ function Dashboard(props) {
             </div>
             <div className="h-10 w-full"></div>
           </div>
-          <ToastContainer />
+          <ShowDialog
+            title={"Delete Post"}
+            description={`Are you sure you want to delete this post?`}
+            open={!!deleteDialog}
+            close={() => {
+              setDelete(null);
+            }}
+            callback={() => {
+              handleDelete(deleteDialog);
+            }}
+          />
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={add}
+          >
+            <AddPost
+              close={() => {
+                setAdd(false);
+              }}
+              userId={userId}
+              setAlert={setAlert}
+              setShowAlert={setShowAlert}
+              theme={theme}
+            />
+          </Backdrop>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={!!comments}
+          >
+            {!!comments && (
+              <PostComment
+                close={() => {
+                  setComments(null);
+                }}
+                post={comments}
+                userId={userId}
+              />
+            )}
+          </Backdrop>
         </div>
       </div>
     </>

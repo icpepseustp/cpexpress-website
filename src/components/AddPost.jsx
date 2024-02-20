@@ -3,7 +3,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import React, { useState } from "react";
 import { addPost } from "../api/FirebaseApi";
 
-function AddPost({ close, userId, setAlert, setShowAlert }) {
+function AddPost({ close, userId, setAlert, setShowAlert, theme }) {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [isUploading, setUploading] = useState(false);
@@ -49,9 +49,21 @@ function AddPost({ close, userId, setAlert, setShowAlert }) {
   };
 
   return (
-    <div className="relative w-[500px] h-[450px] bg-[#EFC3BB] rounded-[20px] mx-4 text-[#CB2A6B]">
+    <div
+      style={{
+        backgroundColor: theme["modal"]["bg"],
+        color: theme["modal"]["font"],
+      }}
+      className="relative w-[500px] h-[450px] rounded-[20px] mx-4 text-[#CB2A6B]"
+    >
       {isUploading && (
-        <div className="absolute w-full h-full bg-[#EFC3BB]/50 rounded-[20px] flex flex-col gap-4 items-center justify-center">
+        <div
+          style={{
+            backgroundColor: theme["modal"]["bg"],
+            opacity: "50%",
+          }}
+          className="absolute w-full h-full  rounded-[20px] flex flex-col gap-4 items-center justify-center"
+        >
           <CircularProgress color="inherit" size="42px" />
           <p>Uploading, please wait...</p>
         </div>
@@ -61,7 +73,12 @@ function AddPost({ close, userId, setAlert, setShowAlert }) {
         className="w-full h-full flex flex-col py-4 px-6"
       >
         <div className="flex flex-row items-center justify-between select-none">
-          <h1 className="font-dmserif text-2xl">Speak Your Mind</h1>
+          <h1
+            style={{ fontFamily: theme["fonts"]["title"] }}
+            className="text-2xl"
+          >
+            Speak Your Mind
+          </h1>
           <Cancel
             onClick={() => {
               handleClose();
@@ -80,7 +97,8 @@ function AddPost({ close, userId, setAlert, setShowAlert }) {
               if (size > 30) return;
               setTitle(e.target.value);
             }}
-            className="py-1 focus:outline-none bg-transparent border-b text-xl placeholder:text-[#CB2A6B]/50 border-[#CB2A6B]"
+            style={{ borderColor: theme["modal"]["font"] }}
+            className="py-1 focus:outline-none bg-transparent border-b text-xl border-[#CB2A6B]"
           />
           <p className="self-end py-2 font-bold text-sm">{title.length}/30</p>
           <textarea
@@ -91,7 +109,7 @@ function AddPost({ close, userId, setAlert, setShowAlert }) {
             onChange={(e) => {
               setBody(e.target.value);
             }}
-            className="pt-2 bg-transparent resize-none placeholder:text-[#CB2A6B]/50 text-lg focus:outline-none"
+            className="pt-2 bg-transparent resize-none  text-lg focus:outline-none"
           />
         </div>
         <div className="flex flex-row items-center justify-end px-1">
@@ -101,6 +119,7 @@ function AddPost({ close, userId, setAlert, setShowAlert }) {
           </div> */}
           <button
             type="submit"
+            style={{ backgroundColor: theme["color"]["button"] }}
             className="select-none w-[100px] h-9 rounded-[10px] bg-[#CB2A6B] text-white text-sm font-bold"
           >
             Post

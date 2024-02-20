@@ -72,7 +72,7 @@ function PostComment({ post, close, userId }) {
           />
         </div>
         <div className="flex flex-col h-full w-full overflow-auto">
-          <div className="relative border border-transparent w-[80%] self-center my-2">
+          <div className="relative border border-transparent w-[80%] h-full self-center my-2">
             <div className="absolute top-0 flex w-full">
               <img
                 src={spring}
@@ -111,7 +111,7 @@ function PostComment({ post, close, userId }) {
               </div>
             </div>
           </div>
-          <div className="flex-1 w-full flex flex-col pb-2 px-2">
+          <div className="flex-1 w-full h-full flex flex-col pb-2 px-2">
             <p className="font-bold py-2">
               Comments &#x2022;{" "}
               <span className="text-sm font-bold">

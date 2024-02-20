@@ -7,6 +7,14 @@
       "color": {
         "text": "white",
         "button": "#1C3E97"
+      },
+      "fonts": {
+        "title": "DM Sans",
+        "body": "DM Sans"
+      },
+      "modal": {
+        "bg": "white",
+        "font": "#1C3E97"
       }
     },
     {
@@ -16,6 +24,14 @@
       "color": {
         "text": "#CB2A6B",
         "button": "#CB2A6B"
+      },
+      "fonts": {
+        "title": "josefin",
+        "body": "dmsans"
+      },
+      "modal": {
+        "bg": "white",
+        "font": "#1C3E97"
       }
     }
   ]

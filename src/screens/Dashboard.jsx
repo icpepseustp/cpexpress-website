@@ -38,7 +38,7 @@ function Dashboard({ userId, setAlert, setShowAlert, user, theme }) {
   }, []);
 
   useEffect(() => {
-    const start = new Date("2024-02-13");
+    const start = new Date("2024-02-20");
     start.setHours(0, 0, 0, 0);
 
     const q = query(
